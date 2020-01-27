@@ -54,18 +54,6 @@ export const inventoryReducer: Reducer<InventoryState, RootAction> = (
         offset: action.offset,
         
       };
-    case FETCH_MORE_INVENTORY_SUCCESS:
-      return {
-        ...state,
-        fetching: false,
-        byId: action.payload.reduce((byId, item) => {
-          byId[item.id] = item;
-
-          return byId;
-        }, {}),
-        allIds: action.payload.map(item => item.id),
-        offset: action.offset
-      };
 
     case FETCH_INVENTORY_ERROR:
       return {
@@ -91,7 +79,6 @@ export const inventoryReducer: Reducer<InventoryState, RootAction> = (
 const FETCH_INVENTORY = "FETCH_INVENTORY";
 const FETCH_MORE_INVENTORY = "FETCH_MORE_INVENTORY";
 const FETCH_INVENTORY_SUCCESS = "FETCH_INVENTORY_SUCCESS";
-const FETCH_MORE_INVENTORY_SUCCESS = "FETCH_MORE_INVENTORY_SUCCESS";
 const FETCH_INVENTORY_ERROR = "FETCH_INVENTORY_ERROR";
 const SEND_INVENTORY = "SEND_INVENTORY";
 const SEND_INVENTORY_SUCCESS = "SEND_INVENTORY_SUCCESS";
@@ -102,11 +89,6 @@ interface FetchMoreInventoryAction
   extends Action<typeof FETCH_MORE_INVENTORY> {}
 interface FetchInventorySuccessAction
   extends Action<typeof FETCH_INVENTORY_SUCCESS> {
-  offset: any;
-  payload: Inventory[];
-}
-interface FetchMoreInventorySuccessAction
-  extends Action<typeof FETCH_MORE_INVENTORY_SUCCESS> {
   offset: any;
   payload: Inventory[];
 }
@@ -129,7 +111,6 @@ export type InventoryAction =
   | FetchInventoryAction
   | FetchMoreInventoryAction
   | FetchInventorySuccessAction
-  | FetchMoreInventorySuccessAction
   | FetchInventoryErrorAction
   | SendInventoryAction
   | SendInventorySuccessAction
@@ -189,7 +170,7 @@ export const actions = {
       .then(response => response.json())
       .then(body => {
         dispatch({
-          type: FETCH_MORE_INVENTORY_SUCCESS,
+          type: FETCH_INVENTORY_SUCCESS,
           payload: body.records,
           offset: body.offset
         });
