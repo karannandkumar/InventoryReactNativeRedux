@@ -33,7 +33,7 @@
     "@types/react-native": "~0.60.23",
     "@types/react-redux": "^7.1.5",
     "babel-preset-expo": "~8.0.0",
-    "expo-cli": "^3.11.5",
+    "expo-cli": "^3.28.6",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.1.0",
